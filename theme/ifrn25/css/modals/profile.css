@@ -1,0 +1,99 @@
+#content-container .content .sidebar-modal .modal-content .modal-content-body #modal-content-body-profile {
+    height: 100% !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+    .modal-switch-title {
+        font: var(--font-heading3);
+    }
+    .modal-switch-option {
+        display: flex;
+        align-items: center;
+        position: relative;
+        gap: .5rem;
+        margin-top: .5rem;
+        font: var(--font-heading5);
+        cursor: pointer;
+        input {
+            opacity: 0;
+            width: 32px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .slider {
+            position: absolute;
+            z-index: -1;
+            height: 20px;
+            width: 32px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--light-dark);
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 34px;
+            &:before { /* O círculo */
+                position: absolute;
+                content: "";
+                height: 12px;
+                width: 12px; 
+                left: 4px;
+                bottom: 4px;
+                background-color: var(--general-white);
+                -webkit-transition: .4s;
+                transition: .4s;
+                border-radius: 50%;
+            }
+        }
+        input:checked + .slider {
+            background-color: var(--primary); /* Cor switch ligado */
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px var(--primary);
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(12px);
+            -ms-transform: translateX(12px);
+            transform: translateX(12px);
+        }
+    }
+
+    .modal-button-option {
+        margin-bottom: .5rem;
+        a {
+            display: inline-block;
+            width: 100%;
+            font: var(--font-button2);
+            color: var(--dark);
+            padding: .5rem 1rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+            &:hover {
+                background-color: var(--light);
+            }
+        }
+        &.exit-button {
+            margin-top: auto;
+            a {
+                background-color: var(--danger-light);
+                color: var(--danger-dark);
+                &:hover {
+                    background-color: var(--danger-dark);
+                    color: var(--danger-light);
+                }
+            }
+        }
+    }
+
+    .modal-content-body-profile-divider {
+        width: 100%;
+        height: 1px;
+        background: var(--cinza-primario);
+        margin-block: .5rem;
+    }
+}
