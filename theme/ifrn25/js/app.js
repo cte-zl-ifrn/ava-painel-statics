@@ -642,8 +642,40 @@ const app = Vue.createApp({
                 console.error('Erro ao atualizar favorito:', error);
             });
         },
+        togglePreference(category, key, value) {
+            fetch(`/change_preference/${category}/${key}/`, {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": this.getCsrfToken,
+                },
+                body: JSON.stringify({ value: value })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === "ok") {
+                    document.body.classList.toggle(category, value);
+                } else {
+                    console.error(data.message);
+                }
+            });
+        },
         goToCourse(item) {
             window.location.href = item.url;
+        },
+        goToCourseUrl(item) {
+          return item.url;
+        },
+        mostrarGauge(e) {
+            var anchor = (e.target.nodeName == 'A') ? e.target : e.target.parentElement;
+            console.log({"t":anchor});
+            // anchor.style.display = "none";
+            const img = document.createElement('img');
+            img.src = 'https://upload.wikimedia.org/wikipedia/commons/3/36/Lightness_rotate_36f-L_cw.gif';
+            img.className = 'floating-image';
+            img.width = 64;
+            anchor.appendChild(img);
+            setTimeout(() => {img.remove();}, 10000);
         },
         showConfirmation(action, callback) {
             const modal = document.getElementById("popup-modal");

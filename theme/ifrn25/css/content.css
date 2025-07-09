@@ -246,16 +246,12 @@
                     overflow: hidden;
 
                     .no-data {
-                        display: flex;
-                        justify-content: center;
-                        align-items: start;
-                        flex: 1;
-                        font: normal normal 600 24px/22px Noto Sans;
-                        /* color: var(--escuro-primario); */
-                        color: var(--cinza-secundario);
-                        letter-spacing: 0px;
-                        opacity: 1;
-                        margin-top: 30px;
+                        margin-top: 2rem;
+                        margin-inline: auto;
+                        max-width: 1360px;
+                        h3 {
+                            font: var(--font-heading2);
+                        }
                     }
 
                     &.active {
@@ -378,6 +374,15 @@
                                 box-shadow: 0 4px 12px rgba(0,0,0,0.1);
                             }
 
+                            .floating-image {
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                pointer-events: none; /* para não interferir com cliques */
+                                z-index: 9999;
+                            }
+
                             .painel-card-header-icon {
                                 background-color: var(--verde-claro);
                                 display: flex;
@@ -408,6 +413,7 @@
                             
                             .painel-card-header-shortname {
                                 font:var(--font-button2);
+                                color: var(--escuro-primario);
                             }
 
                             .painel-card-details {
