@@ -9,33 +9,32 @@ input[type="radio"]:checked + .radio-label {
 
 @font-face {
   font-family: 'opendyslexic';
-	src: url('https://ava-painel-statics.pages.dev/vendors/OpenDyslexic/OpenDyslexic-Regular.otf');
-	font-style: normal;
-	font-weight: normal;
-} 
+  src: url('https://ava-painel-statics.pages.dev/vendors/OpenDyslexic/OpenDyslexic-Regular.otf') format('opentype');
+  font-style: normal;
+  font-weight: normal;
+}
 
 @font-face {
-	font-family: 'opendyslexic';
-	src: url('https://ava-painel-statics.pages.dev/vendors/OpenDyslexic/OpenDyslexic-Italic.ttf');
-	font-style: italic;
-	font-weight: normal;
+    font-family: 'opendyslexic';
+    src: url('https://ava-painel-statics.pages.dev/vendors/OpenDyslexic/OpenDyslexic-Italic.woff2') format('opentype');
+    font-style: italic;
+    font-weight: normal;
 }
 
 @font-face {
 	font-family: 'opendyslexic';
-	src: url('https://ava-painel-statics.pages.dev/vendors/OpenDyslexic/OpenDyslexic-Bold.ttf');
+	src: url('https://ava-painel-statics.pages.dev/vendors/OpenDyslexic/OpenDyslexic-Bold.otf') format('opentype');
 	font-weight: bold;
 	font-style: normal;
 } 
 
 @font-face {
 	font-family: 'opendyslexic';
-	src: url('https://ava-painel-statics.pages.dev/vendors/OpenDyslexic/OpenDyslexic-BoldItalic.ttf');
+	src: url('https://ava-painel-statics.pages.dev/vendors/OpenDyslexic/OpenDyslexic-Bold-Italic.otf') format('opentype');
 	font-weight: bold;
 	font-style: italic;
 } 
 
-@font-face {
-	font-family: eulexia;
-	src: url('https://ava-painel-statics.pages.dev/vendors/OpenDyslexic/eulexia.ttf');
-} 
+body.dyslexia_font {
+  --font-family: "opendyslexic", sans-serif;
+}
