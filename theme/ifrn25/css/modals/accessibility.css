@@ -22,19 +22,76 @@ input[type="radio"]:checked + .radio-label {
 }
 
 @font-face {
-	font-family: 'opendyslexic';
-	src: url('https://ava-painel-statics.pages.dev/vendors/OpenDyslexic/OpenDyslexic-Bold.otf') format('opentype');
-	font-weight: bold;
-	font-style: normal;
+    font-family: 'opendyslexic';
+    src: url('https://ava-painel-statics.pages.dev/vendors/OpenDyslexic/OpenDyslexic-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
 } 
 
 @font-face {
-	font-family: 'opendyslexic';
-	src: url('https://ava-painel-statics.pages.dev/vendors/OpenDyslexic/OpenDyslexic-Bold-Italic.otf') format('opentype');
-	font-weight: bold;
-	font-style: italic;
+    font-family: 'opendyslexic';
+    src: url('https://ava-painel-statics.pages.dev/vendors/OpenDyslexic/OpenDyslexic-Bold-Italic.otf') format('opentype');
+    font-weight: bold;
+    font-style: italic;
 } 
 
 body.dyslexia_font {
-  --font-family: "opendyslexic", sans-serif;
+    --font-family: "opendyslexic", sans-serif !important;
+}
+
+body.big_cursor * {
+    cursor: url(https://cdn.userway.org/widgetapp/images/arrow_w.svg), auto;
+}
+
+.highlight_links [data-highlight] {
+  background-color: rgba(255, 255, 100, 1);
+  border: 2px solid #f90;
+  font-weight: bold;
+  text-shadow: 0 0 2px #fff;
+  padding: 0.25em 0.5em;
+  color: var(--dark);
+}
+
+body.highlight_links [data-highlight]:focus {
+  outline: 3px solid #f90;
+  outline-offset: 2px;
+}
+
+/* Hover opcional para reforçar ainda mais */
+body.highlight_links [data-highlight]:hover {
+  background-color: rgba(255, 255, 0, 0.5);
+}
+
+div[vw].enabled {
+    display: none !important;
+    margin: 0 !important;
+    top: 60% !important;
+    left: 8px !important;
+    right: initial !important;
+}
+
+.vlibras_active div[vw].enabled {
+    display: block !important;
+}
+
+body.stop_animations *,
+body.stop_animations *::before,
+body.stop_animations *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+  transition-timing-function: step-end !important;
+  transition-duration: 0s !important;
+  animation-timing-function: step-end !important;
+  animation-iteration-count: 1 !important;
+  animation-duration: 0s !important;
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }
