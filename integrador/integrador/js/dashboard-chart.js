@@ -1,84 +1,103 @@
-(function() {
-    'use strict';
+(function () {
+    "use strict";
 
-    const CHART_CONFIG = {
-        datasets: [
-            { label: 'Total', field: 'total', color: '#417690' },
-            { label: 'Sucesso', field: 'sucesso', color: '#155724' },
-            { label: 'Falha', field: 'falha', color: '#721c24' },
-            { label: 'Processando', field: 'processando', color: '#856404' },
-        ],
-    };
+    function isDarkMode() {
+        if (document.documentElement.dataset.theme === "dark") {
+            return true;
+        }
+        if (document.documentElement.dataset.theme === "light") {
+            return false;
+        }
+        return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+
+    function getChartColors() {
+        const dark = isDarkMode();
+        return {
+            textColor: dark ? "#e0e0e0" : "#555555",
+            gridColor: dark ? "rgba(255, 255, 255, 0.12)" : "rgba(0, 0, 0, 0.08)",
+            datasets: [
+                { label: "Total", field: "total", color: dark ? "#60a5fa" : "#417690" },
+                { label: "Sucesso", field: "sucesso", color: dark ? "#4cd964" : "#28a745" },
+                { label: "Falha", field: "falha", color: dark ? "#ff5b68" : "#dc3545" },
+                { label: "Processando", field: "processando", color: dark ? "#ffd600" : "#d97706" },
+            ],
+        };
+    }
 
     function buildDataset(label, field, color) {
         const series = window.dashboardChartData || [];
         return {
             label,
-            data: series.map(point => point[field]),
+            data: series.map((point) => point[field]),
             borderColor: color,
             backgroundColor: color,
             tension: 0.25,
-            pointRadius: 2,
+            pointRadius: 3,
             fill: false,
         };
     }
 
     function initChart() {
-        const canvas = document.getElementById('solicitacoes-series-chart');
+        const canvas = document.getElementById("solicitacoes-series-chart");
         if (!canvas) {
-            console.warn('Canvas element #solicitacoes-series-chart not found');
             return;
         }
 
         const series = window.dashboardChartData || [];
-        
+
         if (!series || series.length === 0) {
-            console.warn('No data available for dashboard chart');
-            canvas.parentElement.style.display = 'none';
+            if (canvas.parentElement) {
+                canvas.parentElement.style.display = "none";
+            }
             return;
         }
 
-        const labels = series.map(point => point.date);
-        
-        const datasets = CHART_CONFIG.datasets.map(cfg =>
-            buildDataset(cfg.label, cfg.field, cfg.color)
-        );
+        const colors = getChartColors();
+        const labels = series.map((point) => point.date);
+        const datasets = colors.datasets.map((cfg) => buildDataset(cfg.label, cfg.field, cfg.color));
 
         try {
             new Chart(canvas, {
-                type: 'line',
+                type: "line",
                 data: { labels, datasets },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    interaction: { mode: 'index', intersect: false },
+                    interaction: { mode: "index", intersect: false },
                     plugins: {
-                        legend: { display: true },
+                        legend: {
+                            display: true,
+                            labels: { color: colors.textColor },
+                        },
                         tooltip: {
                             callbacks: {
-                                label: ctx => `${ctx.dataset.label}: ${ctx.formattedValue}`,
+                                label: (ctx) => `${ctx.dataset.label}: ${ctx.formattedValue}`,
                             },
                         },
                     },
                     scales: {
                         x: {
-                            title: { display: true, text: 'Data' },
+                            ticks: { color: colors.textColor },
+                            grid: { color: colors.gridColor },
+                            title: { display: true, text: "Data", color: colors.textColor },
                         },
                         y: {
                             beginAtZero: true,
-                            title: { display: true, text: 'Solicitações' },
+                            ticks: { color: colors.textColor },
+                            grid: { color: colors.gridColor },
+                            title: { display: true, text: "Solicitações", color: colors.textColor },
                         },
                     },
                 },
             });
         } catch (error) {
-            console.error('Error initializing chart:', error);
+            console.error("Error initializing chart:", error);
         }
     }
 
-    // Inicializa quando o DOM está pronto
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initChart);
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initChart);
     } else {
         initChart();
     }
